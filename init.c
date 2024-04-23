@@ -6,7 +6,7 @@
 /*   By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:20:17 by picarlie          #+#    #+#             */
-/*   Updated: 2024/04/22 19:10:44 by picarlie         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:36:43 by picarlie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4; // 2 * 2 hypotenuse
 	fractal->iterations_definition = 42;
+	fractal->shift_x = 0;
+	fractal->shift_y = 0;
+	fractal->zoom = 0;
+}
+
+static void	events_init(t_fractal *fractal)
+{
+	mlx_hook(fractal->mlx_window, KeyPress, KeyPressMask, key_handler, fractal); //for keyboard
+	mlx_hook(fractal->mlx_window, ButtonPress, ButtonPressMask, mouse_handler, fractal); //for mouse
+	mlx_hook(fractal->mlx_window, DestroyNotify, StructureNotifyMask, close_handler, fractal); //for "X" top right button
 }
 
 /*
@@ -50,6 +60,6 @@ void	fractal_init(t_fractal *fractal)
 	}
 	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img_ptr, &fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
 	
-	//events_init(fractal) ==> TODO
+	events_init(fractal); //==> TODO
 	data_init(fractal);
 }

@@ -6,7 +6,7 @@
 /*   By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:06:23 by picarlie          #+#    #+#             */
-/*   Updated: 2024/04/22 16:52:16 by picarlie         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:35:04 by picarlie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <math.h>
 # include "minilibx-linux/mlx.h"
+# include "X11/X.h"
+# include "X11/keysym.h"
 # include "Libft/libft.h"
 
 # define ERROR_MESSAGE "Please enter \n\t\"./fractol mandelbrot\" or \n\t\"./fractol julia <value_1> <value_2>\"\n"
@@ -74,6 +76,9 @@ typedef struct	s_fractal
 	//Hooks members variables // TODO
 	double	escape_value;//hypotenuse
 	int		iterations_definition; //value tight with the image quality and rendering speed
+	double	shift_x;
+	double	shift_y;
+	double	zoom;
 	
 }	t_fractal;
 
@@ -89,6 +94,11 @@ void	fractal_render(t_fractal *fractal);
 double	map(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
+
+/*Hooks events*/
+int	key_handler(int keysym, t_fractal *fractal);
+int	close_handler(t_fractal *fractal);
+int	mouse_handler(int button, int x, int y, t_fractal *fractal);
 
 #endif
 

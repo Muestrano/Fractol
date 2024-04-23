@@ -6,7 +6,7 @@
 /*   By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:51:22 by picarlie          #+#    #+#             */
-/*   Updated: 2024/04/22 19:05:56 by picarlie         ###   ########.fr       */
+/*   Updated: 2024/04/23 20:28:15 by picarlie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 	z.x = 0.0;
 	z.y = 0.0;
 
-	c.x = map(x, -2, +2, 0, WIDTH);
-	c.y = map(y, +2, -2, 0, HEIGHT);
+	c.x = map(x, -2 - fractal->zoom, +2 + fractal->zoom, 0, WIDTH) + fractal->shift_x;
+	c.y = map(y, +2 + fractal->zoom, -2 - fractal->zoom, 0, HEIGHT) + fractal->shift_y;
 
 	/*how many times you want to iterate z^2+c to check if the point escapes*/
 	while (i < fractal->iterations_definition)

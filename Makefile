@@ -6,7 +6,7 @@
 #    By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 17:04:23 by picarlie          #+#    #+#              #
-#    Updated: 2024/04/22 16:52:38 by picarlie         ###   ########.fr        #
+#    Updated: 2024/04/23 17:40:57 by picarlie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = fractol.c \
 	math_utils.c \
 	render.c \
 	init.c \
+	events.c
 
 
 all: $(NAME)
