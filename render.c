@@ -6,11 +6,23 @@
 /*   By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:51:22 by picarlie          #+#    #+#             */
-/*   Updated: 2024/04/23 20:28:15 by picarlie         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:14:27 by picarlie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+/*
+	MANDELBROT
+	z = z^2 + c
+	z0 = (0,0)
+	c is the actual point (eg we want to see if (0,1) is in the set)
+
+	JULIA (oooooh, Julia !)
+	./fractol julia <real><imaginary>
+	z = pixel_point + constant (is cst = r + i in the args)
+	
+*/
 
 /*Put a pixel in the img buffer*/
 static void	my_pixel_put(int x, int y, t_img *img, int color)
@@ -30,6 +42,20 @@ static void	my_pixel_put(int x, int y, t_img *img, int color)
 	*(unsigned int *)dst = color;
 }*/
 
+static void	mandel_vs_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+{
+	if (!ft_strncmp(fractal->name, "julia", 5))
+	{
+		c->x = fractal->julia_x;
+		c->y = fractal->julia_y;
+	}
+	else
+	{
+		c->x = z->x;
+		c->y = z->y;
+	}
+}
+
 static void	handle_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
@@ -38,12 +64,10 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 	int			color;
 
 	i = 0;
-	z.x = 0.0;
-	z.y = 0.0;
-
-	c.x = map(x, -2 - fractal->zoom, +2 + fractal->zoom, 0, WIDTH) + fractal->shift_x;
-	c.y = map(y, +2 + fractal->zoom, -2 - fractal->zoom, 0, HEIGHT) + fractal->shift_y;
-
+	
+	z.x = (map(x, -2, +2, 0, WIDTH) * fractal->zoom) + fractal->shift_x; //additive zoom doesnt work because it will flip the image, multiplicative zoom needed
+	z.y = (map(y, +2, -2, 0, HEIGHT) * fractal->zoom) + fractal->shift_y; //multiplicative zoom scales with the scale ie zoom gets tinier when the scale is tiny
+	mandel_vs_julia(&z, &c,fractal);
 	/*how many times you want to iterate z^2+c to check if the point escapes*/
 	while (i < fractal->iterations_definition)
 	{

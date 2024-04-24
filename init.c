@@ -6,7 +6,7 @@
 /*   By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:20:17 by picarlie          #+#    #+#             */
-/*   Updated: 2024/04/23 19:36:43 by picarlie         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:28:47 by picarlie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	data_init(t_fractal *fractal)
 	fractal->iterations_definition = 42;
 	fractal->shift_x = 0;
 	fractal->shift_y = 0;
-	fractal->zoom = 0;
+	fractal->zoom = 1.0;
 }
 
 static void	events_init(t_fractal *fractal)
@@ -32,6 +32,7 @@ static void	events_init(t_fractal *fractal)
 	mlx_hook(fractal->mlx_window, KeyPress, KeyPressMask, key_handler, fractal); //for keyboard
 	mlx_hook(fractal->mlx_window, ButtonPress, ButtonPressMask, mouse_handler, fractal); //for mouse
 	mlx_hook(fractal->mlx_window, DestroyNotify, StructureNotifyMask, close_handler, fractal); //for "X" top right button
+	mlx_hook(fractal->mlx_window, MotionNotify, PointerMotionMask, julia_track, fractal); //
 }
 
 /*

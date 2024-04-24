@@ -6,7 +6,7 @@
 /*   By: picarlie <picarlie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:06:23 by picarlie          #+#    #+#             */
-/*   Updated: 2024/04/23 19:35:04 by picarlie         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:27:19 by picarlie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct	s_fractal
 	double	shift_x;
 	double	shift_y;
 	double	zoom;
+	double	julia_x;
+	double	julia_y;
 	
 }	t_fractal;
 
@@ -99,6 +101,9 @@ t_complex	square_complex(t_complex z);
 int	key_handler(int keysym, t_fractal *fractal);
 int	close_handler(t_fractal *fractal);
 int	mouse_handler(int button, int x, int y, t_fractal *fractal);
+int	julia_track(int x, int y, t_fractal *fractal);
+/*String utils*/
+double	atodbl(char *s);
 
 #endif
 
